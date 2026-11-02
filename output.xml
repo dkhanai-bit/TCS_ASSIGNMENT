@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.12.5 on win32)" generated="2026-11-02T21:12:46.284695" rpa="false" schemaversion="5">
+<suite id="s1" name="PythonProject" source="C:\Users\user\PycharmProjects\PythonProject">
+<suite id="s1-s1" name="TCS Assignment 2026" source="C:\Users\user\PycharmProjects\PythonProject\TCS_Assignment_2026">
+<suite id="s1-s1-s1" name="TestCases" source="C:\Users\user\PycharmProjects\PythonProject\TCS_Assignment_2026\TestCases">
+<suite id="s1-s1-s1-s1" name="API CRUD FILE" source="C:\Users\user\PycharmProjects\PythonProject\TCS_Assignment_2026\TestCases\API_CRUD_FILE.robot">
+<test id="s1-s1-s1-s1-t1" name="Verify Pet API CRUD Operations" line="11">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-11-02T21:12:46.442453" level="INFO">Creating Session using : alias=api_session, url=https://petstore.swagger.io/v2, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-11-02T21:12:46.442453" elapsed="0.000000"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2026-11-02T21:12:46.443755" level="INFO">${current_time} = 1793634166.442453</msg>
+<var>${current_time}</var>
+<arg>result_format=epoch</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2026-11-02T21:12:46.442453" elapsed="0.001302"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-11-02T21:12:46.443755" level="INFO">${pet_id} = 1793634166</msg>
+<var>${pet_id}</var>
+<arg>int(${current_time})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-11-02T21:12:46.443755" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-11-02T21:12:46.444760" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-11-02T21:12:46.444760" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-11-02T21:12:46.445766" level="INFO">${payload} = {'id': 1793634166, 'name': 'oreo', 'status': 'alive'}</msg>
+<var>${payload}</var>
+<arg>id=${pet_id}</arg>
+<arg>name=oreo</arg>
+<arg>status=alive</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-11-02T21:12:46.445766" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-11-02T21:12:47.387130" level="INFO">POST Request : url=https://petstore.swagger.io/v2/pet 
+ path_url=/v2/pet 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '53'} 
+ body=b'{"id": 1793634166, "name": "oreo", "status": "alive"}' 
+ </msg>
+<msg time="2026-11-02T21:12:47.387130" level="INFO">POST Response : url=https://petstore.swagger.io/v2/pet 
+ status=200, reason=OK 
+ headers={'Date': 'Mon, 02 Nov 2026 15:42:47 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.4.58.v20250814)'} 
+ body={"id":1793634166,"name":"oreo","photoUrls":[],"tags":[],"status":"alive"} 
+ </msg>
+<msg time="2026-11-02T21:12:47.387130" level="INFO">C:\Users\user\PycharmProjects\PythonProject\.venv\Lib\site-packages\urllib3\connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-11-02T21:12:47.387130" level="INFO">${post_response} = &lt;Response [200]&gt;</msg>
+<var>${post_response}</var>
+<arg>api_session</arg>
+<arg>/pet</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-11-02T21:12:46.445766" elapsed="0.941364"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-11-02T21:12:47.389500" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${post_response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.388495" elapsed="0.001005"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-11-02T21:12:47.604636" level="INFO">GET Request : url=https://petstore.swagger.io/v2/pet/1793634166 
+ path_url=/v2/pet/1793634166 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-11-02T21:12:47.604636" level="INFO">GET Response : url=https://petstore.swagger.io/v2/pet/1793634166 
+ status=200, reason=OK 
+ headers={'Date': 'Mon, 02 Nov 2026 15:42:47 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.4.58.v20250814)'} 
+ body={"id":1793634166,"name":"oreo","photoUrls":[],"tags":[],"status":"alive"} 
+ </msg>
+<msg time="2026-11-02T21:12:47.606039" level="INFO">C:\Users\user\PycharmProjects\PythonProject\.venv\Lib\site-packages\urllib3\connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-11-02T21:12:47.606039" level="INFO">${get_response} = &lt;Response [200]&gt;</msg>
+<var>${get_response}</var>
+<arg>api_session</arg>
+<arg>/pet/${pet_id}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.389500" elapsed="0.216539"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-11-02T21:12:47.609518" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${get_response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.607071" elapsed="0.002447"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-11-02T21:12:47.613005" level="INFO">${response_data} = {'id': 1793634166, 'name': 'oreo', 'photoUrls': [], 'tags': [], 'status': 'alive'}</msg>
+<var>${response_data}</var>
+<arg>${get_response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.610774" elapsed="0.002231"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response_data}[id]</arg>
+<arg>${pet_id}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.614026" elapsed="0.001049"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${response_data}[name]</arg>
+<arg>oreo</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.616198" elapsed="0.000997"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${response_data}[status]</arg>
+<arg>alive</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.619193" elapsed="0.000994"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-11-02T21:12:47.624185" level="INFO">${update_payload} = {'id': 1793634166, 'name': 'oreoUpdated', 'status': 'alive'}</msg>
+<var>${update_payload}</var>
+<arg>id=${pet_id}</arg>
+<arg>name=oreoUpdated</arg>
+<arg>status=alive</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.622191" elapsed="0.001994"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2026-11-02T21:12:47.841923" level="INFO">PUT Request : url=https://petstore.swagger.io/v2/pet 
+ path_url=/v2/pet 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '60'} 
+ body=b'{"id": 1793634166, "name": "oreoUpdated", "status": "alive"}' 
+ </msg>
+<msg time="2026-11-02T21:12:47.841923" level="INFO">PUT Response : url=https://petstore.swagger.io/v2/pet 
+ status=200, reason=OK 
+ headers={'Date': 'Mon, 02 Nov 2026 15:42:47 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.4.58.v20250814)'} 
+ body={"id":1793634166,"name":"oreoUpdated","photoUrls":[],"tags":[],"status":"alive"} 
+ </msg>
+<msg time="2026-11-02T21:12:47.841923" level="INFO">C:\Users\user\PycharmProjects\PythonProject\.venv\Lib\site-packages\urllib3\connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-11-02T21:12:47.843326" level="INFO">${put_response} = &lt;Response [200]&gt;</msg>
+<var>${put_response}</var>
+<arg>api_session</arg>
+<arg>/pet</arg>
+<arg>json=${update_payload}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.625180" elapsed="0.218146"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-11-02T21:12:47.847042" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${put_response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.845034" elapsed="0.002008"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-11-02T21:12:48.065678" level="INFO">GET Request : url=https://petstore.swagger.io/v2/pet/1793634166 
+ path_url=/v2/pet/1793634166 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-11-02T21:12:48.066740" level="INFO">GET Response : url=https://petstore.swagger.io/v2/pet/1793634166 
+ status=200, reason=OK 
+ headers={'Date': 'Mon, 02 Nov 2026 15:42:48 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.4.58.v20250814)'} 
+ body={"id":1793634166,"name":"oreoUpdated","photoUrls":[],"tags":[],"status":"alive"} 
+ </msg>
+<msg time="2026-11-02T21:12:48.066740" level="INFO">C:\Users\user\PycharmProjects\PythonProject\.venv\Lib\site-packages\urllib3\connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-11-02T21:12:48.066740" level="INFO">${check_update} = &lt;Response [200]&gt;</msg>
+<var>${check_update}</var>
+<arg>api_session</arg>
+<arg>/pet/${pet_id}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-11-02T21:12:47.848422" elapsed="0.219346"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${check_update.json()}[name]</arg>
+<arg>oreoUpdated</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-11-02T21:12:48.069087" elapsed="0.001061"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${check_update.json()}[status]</arg>
+<arg>alive</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-11-02T21:12:48.071507" elapsed="0.001565"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-11-02T21:12:48.288673" level="INFO">DELETE Request : url=https://petstore.swagger.io/v2/pet/1793634166 
+ path_url=/v2/pet/1793634166 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-11-02T21:12:48.289787" level="INFO">DELETE Response : url=https://petstore.swagger.io/v2/pet/1793634166 
+ status=200, reason=OK 
+ headers={'Date': 'Mon, 02 Nov 2026 15:42:48 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.4.58.v20250814)'} 
+ body={"code":200,"type":"unknown","message":"1793634166"} 
+ </msg>
+<msg time="2026-11-02T21:12:48.289787" level="INFO">C:\Users\user\PycharmProjects\PythonProject\.venv\Lib\site-packages\urllib3\connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-11-02T21:12:48.290807" level="INFO">${delete_response} = &lt;Response [200]&gt;</msg>
+<var>${delete_response}</var>
+<arg>api_session</arg>
+<arg>/pet/${pet_id}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-11-02T21:12:48.074424" elapsed="0.216383"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-11-02T21:12:48.293082" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${delete_response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-02T21:12:48.291805" elapsed="0.002317"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-11-02T21:12:48.512446" level="INFO">GET Request : url=https://petstore.swagger.io/v2/pet/1793634166 
+ path_url=/v2/pet/1793634166 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-11-02T21:12:48.513655" level="INFO">GET Response : url=https://petstore.swagger.io/v2/pet/1793634166 
+ status=404, reason=Not Found 
+ headers={'Date': 'Mon, 02 Nov 2026 15:42:48 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT', 'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization', 'Server': 'Jetty(9.4.58.v20250814)'} 
+ body={"code":1,"type":"error","message":"Pet not found"} 
+ </msg>
+<msg time="2026-11-02T21:12:48.513655" level="INFO">C:\Users\user\PycharmProjects\PythonProject\.venv\Lib\site-packages\urllib3\connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'petstore.swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-11-02T21:12:48.514677" level="INFO">${final_get} = &lt;Response [404]&gt;</msg>
+<var>${final_get}</var>
+<arg>api_session</arg>
+<arg>/pet/${pet_id}</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-11-02T21:12:48.295150" elapsed="0.219527"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-11-02T21:12:48.516705" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${final_get.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-02T21:12:48.515708" elapsed="0.000997"/>
+</kw>
+<status status="PASS" start="2026-11-02T21:12:46.441442" elapsed="2.076285"/>
+</test>
+<doc>API CRUD Test for Assessment Part B</doc>
+<status status="PASS" start="2026-11-02T21:12:46.331723" elapsed="2.188225"/>
+</suite>
+<status status="PASS" start="2026-11-02T21:12:46.330727" elapsed="2.192805"/>
+</suite>
+<status status="PASS" start="2026-11-02T21:12:46.329239" elapsed="2.195317"/>
+</suite>
+<status status="PASS" start="2026-11-02T21:12:46.286931" elapsed="2.239937"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="PythonProject" id="s1" pass="1" fail="0" skip="0">PythonProject</stat>
+<stat name="TCS Assignment 2026" id="s1-s1" pass="1" fail="0" skip="0">PythonProject.TCS Assignment 2026</stat>
+<stat name="TestCases" id="s1-s1-s1" pass="1" fail="0" skip="0">PythonProject.TCS Assignment 2026.TestCases</stat>
+<stat name="API CRUD FILE" id="s1-s1-s1-s1" pass="1" fail="0" skip="0">PythonProject.TCS Assignment 2026.TestCases.API CRUD FILE</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
