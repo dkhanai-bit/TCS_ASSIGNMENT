@@ -32,14 +32,14 @@ Verify Pet API CRUD Operations
     Should Be Equal As Strings     ${response_data}[status]    alive
 
     # 4. UPDATE: Modify the pet's name using PUT
-    ${update_payload}=    Create Dictionary    id=${pet_id}    name=oreoUpdated    status=alive
+    ${update_payload}=    Create Dictionary    id=${pet_id}    name=oreoUpdated    status=old
     ${put_response}=      PUT On Session    api_session    /pet    json=${update_payload}    headers=${headers}
     Should Be Equal As Integers    ${put_response.status_code}    200
 
     # Verify the name changed successfully
     ${check_update}=     GET On Session    api_session    /pet/${pet_id}
     Should Be Equal As Strings    ${check_update.json()}[name]    oreoUpdated
-    Should Be Equal As Strings    ${check_update.json()}[status]    alive
+    Should Be Equal As Strings    ${check_update.json()}[status]    old
 
     # 5. DELETE: Delete the pet and confirm it returns 404 on a subsequent GET
     ${delete_response}=  DELETE On Session    api_session    /pet/${pet_id}
