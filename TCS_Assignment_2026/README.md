@@ -67,3 +67,56 @@ All configurable parameters are defined in the *** Variables *** section of UI_A
 ${BASE_URL}      https://www.amazon.in
 ${BROWSER}       chrome
 ${TIMEOUT}       15s
+
+# TCS Assignment 2026  ( Part B )
+
+# 🔌 Part B: API CRUD Automation Test Suite (TCS Assessment 2026)
+
+[![Robot Framework](https://img.shields.io/badge/Robot%20Framework-Automation-blue.svg)](https://robotframework.org/)
+[![RequestsLibrary](https://img.shields.io/badge/RequestsLibrary-API%20Testing-orange.svg)](https://github.com/MarketSquare/robotframework-requests)
+[![Status](https://img.shields.io/badge/Status-Verified%20&%20Passing-success.svg)]()
+
+---
+
+## 📖 Description
+This module contains the backend RESTful API CRUD test suite developed for **Part B** of the 2026 Technical Assessment. Built using **Robot Framework** and **RequestsLibrary**, this script validates the complete Create, Read, Update, and Delete lifecycle against the public **Swagger Petstore API** (`https://petstore.swagger.io/v2`), ensuring strict assertion checks, error handling, and automated execution logging.
+
+---
+
+## ✨ Features / Highlights
+* **Dynamic ID Generation:** Automatically generates unique record IDs using current epoch timestamps to prevent data collisions during test execution.
+* **Full CRUD Lifecycle Coverage:**
+  * **CREATE (`POST`):** Instantiates a new pet record with custom payload data.
+  * **READ (`GET`):** Fetches the record and asserts matching field attributes (`id`, `name`, `status`).
+  * **UPDATE (`PUT`):** Modifies existing pet details and verifies state changes.
+  * **DELETE (`DELETE`):** Removes the record and performs negative validation confirming subsequent fetches return a `404 Not Found` status.
+* **Automated Evidence Logging:** Generates a structured summary text file (`api_test_results.txt`) upon completion as formal execution proof.
+
+---
+
+## ⚙️ Prerequisites & Requirements
+Ensure your local environment meets the following requirements:
+* **Python:** Version 3.10 or higher installed.
+* **Virtual Environment:** Recommended (`.venv` initialized in the project root).
+* **Required Libraries:** Robot Framework and RequestsLibrary.
+
+---
+
+## 📥 Installation Instructions
+1. Open your project terminal in PyCharm or your command line interface.
+2. Activate your virtual environment:
+   ```powershell
+   .venv\Scripts\Activate
+
+## 📥 Installation Instructions
+Install the required Robot Framework Requests library:
+pip install robotframework-requests
+
+## 📥 How To Run The TestCases
+robot TCS_Assignment_2026/TestCases/API_CRUD_FILE.robot
+
+📂 Generated Evidence & Artifacts
+Upon successful execution, the test runner automatically generates and saves audit evidence inside the TestCases folder:   API Log Summary: api_test_results.txt (contains step-by-step status codes and confirmation summaries)   Execution Reports: log.html and report.html   
+
+🛠️ Configuration & Environment
+API Base URL: Configured globally within the script variable ${BASE_URL} as https://petstore.swagger.io/v2.
