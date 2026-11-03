@@ -46,7 +46,7 @@ ${BASE_URL}      https://www.amazon.in
     [Documentation]    Perform a product search and assert the results page displays the search term.
     Open Browser    ${BASE_URL}    chrome
     Maximize Browser Window
-
+    
     Sleep    3s
 
     # Type product name into the search box and click search

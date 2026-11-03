@@ -1,8 +1,9 @@
 *** Settings ***
-Documentation    API CRUD Test for Assessment Part B
+Documentation    API CRUD Test for Assessment Part B with Evidence Logging
 Library          RequestsLibrary
 Library          Collections
 Library          DateTime
+Library          OperatingSystem
 
 *** Variables ***
 ${BASE_URL}      https://petstore.swagger.io/v2
@@ -48,3 +49,16 @@ Verify Pet API CRUD Operations
     # Try to fetch the deleted pet (expecting 404 Not Found)
     ${final_get}=        GET On Session    api_session    /pet/${pet_id}    expected_status=404
     Should Be Equal As Integers    ${final_get.status_code}    404
+
+    # Save API Test Result Evidence into the TestCases directory
+    ${execution_log}=    Catenate    SEPARATOR=\n
+    ...                  --- API CRUD TEST EXECUTION SUMMARY ---
+    ...                  Pet ID: ${pet_id}
+    ...                  CREATE Status: ${post_response.status_code}
+    ...                  READ Status: ${get_response.status_code}
+    ...                  UPDATE Status: ${put_response.status_code}
+    ...                  DELETE Status: ${delete_response.status_code}
+    ...                  Final GET Status (404 Confirmed): ${final_get.status_code}
+    ...                  Test Status: PASSED SUCCESSFULLY
+
+    Create File          TCS_Assignment_2026/TestCases/api_test_results.txt    ${execution_log}
